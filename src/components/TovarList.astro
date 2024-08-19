@@ -1,0 +1,48 @@
+---
+import Tovar from './Tovar.astro';
+
+interface TovarProps {
+  id: number;
+  content: {
+    brand: string;
+    image1: { filename: string };
+    full_title: string;
+  };
+}
+
+interface Props {
+  tovars: TovarProps[];
+}
+
+const { tovars } = Astro.props;
+
+let tovarElements = [];
+
+console.log(Object.keys(tovars).length)
+
+if (Object.keys(tovars).length > 0) {
+  for (let i = 0; i < Object.keys(tovars).length; i++) {
+    const tovar = tovars[i];
+    tovarElements.push({
+        image_src: tovar.content.image1.filename,
+        brand: tovar.content.brand,
+        title: tovar.content.full_title,
+        href: `/tovar/${tovar.id}`
+    });
+  }
+} else {
+  tovarElements.push('<p>Нет доступных товаров.</p>');
+}
+console.log(tovarElements)
+---
+
+{tovarElements.map((elem) => {
+    return (
+        <Tovar
+            image_src={elem.image_src}
+            brand={elem.brand}
+            title={elem.title}
+            href={elem.href}
+        />
+    )
+})}

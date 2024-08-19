@@ -1,0 +1,22 @@
+{
+  "name": "auto-keys-shop",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^3.6.2",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "astro": "^4.14.2",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "storyblok-js-client": "^6.8.2",
+    "tiny-slider": "^2.9.4"
+  }
+}

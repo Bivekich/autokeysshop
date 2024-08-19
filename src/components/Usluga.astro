@@ -1,0 +1,76 @@
+---
+interface Props {
+	image_src: string;
+    price: string;
+    question: string;
+    title: string;
+    body: string;
+    href: string;
+}
+
+const { 
+    image_src,
+    price,
+    question,
+    body, 
+    title,
+    href
+} = Astro.props;
+---
+
+
+<a href={href} class="block">
+    <img src={image_src}>
+    <span class="price">{price}</span>
+    <h5>{title}</h5>
+    <span class="quest">{question}</span>
+    <p>{body}</p>
+</a>
+
+<style>
+    * {
+        margin: 0;
+    }
+    .block{
+        padding: 20px;
+        background: #EBF2FF;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        max-width: 35vw;
+        text-decoration: none
+        
+    }
+    .block:nth-child(even){
+        transform: translateY(10%);
+    }
+    h5{
+        font-weight: 600;
+        font-size: 25px;
+        color: #377dff;
+    }
+    .quest{
+        font-weight: 400;
+        font-size: 18px;
+        color: #678aba;
+    }
+    img{
+        width: 100%;
+        border-radius: 10px;
+    }
+    p{
+        font-weight: 400;
+        font-size: 20px;
+        color: #000;
+    }
+    .price{
+        background: #377dff;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 20px;
+        color: #fff;
+        padding: 5px 10px;
+        width: fit-content;
+        margin-top: 20px;
+    }
+</style>

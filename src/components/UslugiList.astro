@@ -1,0 +1,54 @@
+---
+import Usluga from './Usluga.astro';
+
+interface UslugiProps {
+  id: number;
+  content: {
+    price: string;
+    image_1: { filename: string };
+    small_title: string;
+    question: string;
+    paragraph1: string;
+  };
+}
+
+interface Props {
+  uslugi: UslugiProps[];
+}
+
+const { uslugi } = Astro.props;
+
+let uslugaElements = [];
+
+console.log(Object.keys(uslugi).length)
+
+if (Object.keys(uslugi).length > 0) {
+  for (let i = 0; i < Object.keys(uslugi).length; i++) {
+    const usluga = uslugi[i];
+    uslugaElements.push({
+        image_src: usluga.content.image_1.filename,
+        price: usluga.content.price,
+        title: usluga.content.small_title,
+        question: usluga.content.question,
+        body: usluga.content.paragraph1,
+        href: `/usluga/${usluga.id}`
+    });
+  }
+} else {
+  uslugaElements.push('<p>Нет доступных товаров.</p>');
+}
+console.log(uslugaElements)
+---
+
+{uslugaElements.map((elem) => {
+    return (
+        <Usluga
+            image_src={elem.image_src}
+            title={elem.title}
+            price={elem.price}
+            question={elem.question}
+            body={elem.body}
+            href={elem.href}
+        />
+    )
+})}

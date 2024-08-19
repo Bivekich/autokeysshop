@@ -1,0 +1,47 @@
+---
+interface Props {
+	title: string;
+	body: string;
+	image_src: string;
+}
+
+const { image_src, title, body } = Astro.props;
+---
+
+<div class="block">
+    <img src={image_src}>
+    <h3>{title}</h3>
+    <p>{body}</p>
+</div>
+
+<style>
+    *{
+        margin: 0;
+    }
+    .block{
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+        padding: 20px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        max-width: 500px;
+        width: 100%;
+        min-width: 400px;
+    }
+    img{
+        width: 100%;
+        border-radius: 10px;
+    }
+    h3{
+        font-weight: 700;
+        font-size: 32px;
+        color: #000;
+    }
+    p{
+        font-weight: 400;
+        font-size: 26px;
+        color: #000;
+        line-height: 1.2;
+    }
+</style>
