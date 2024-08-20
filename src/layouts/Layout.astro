@@ -20,21 +20,28 @@ const { title } = Astro.props;
 			<span class="logo">
 				Auto Keys Shop
 			</span>
-			<div class="menu" id="menu">
-				<div class="item main">
+			<nav class="menu" id="menu">
+				<a href="/" class="item main">
 					Главная
-				</div>
-				<div class="item aboutus">
+				</a>
+				<a href="/#aboutus" class="item aboutus">
 					О нас
-				</div>
-				<div class="item callback">
+				</a>
+				<a href="/#callback" class="item callback">
 					Отзывы
-				</div>
-				<div class="item">
+				</a>
+				<a href="/#uslugi" class="item uslugi">
 					Услуги
-				</div>
+				</a>
 
+			</nav>
+			<div class="hamburger" id="hamburger">
+				<span class="line top"></span>
+				<span class="line middle"></span>
+				<span class="line bottom"></span>
 			</div>
+			
+			  
 		</header>
 		<slot />
 		<footer>
@@ -64,6 +71,19 @@ const { title } = Astro.props;
 		</footer>
 	</body>
 </html>
+<script>
+	document.getElementById("hamburger").onclick = function() {
+		const hamburger = document.getElementById("hamburger");
+		const menu = document.getElementById("menu");
+
+		// Переключение класса active для гамбургер-меню
+		hamburger.classList.toggle("active");
+
+		// Переключение класса active для меню
+		menu.classList.toggle("active");
+	};
+
+</script>
 <style is:global>
 	:root {
 		--accent: 136, 58, 234;
@@ -105,24 +125,94 @@ const { title } = Astro.props;
 		justify-content: center;
 		margin: auto;
 	}
+	.humburger {
+		display: none
+	}
 	footer,
 	footer * {
 		width: fit-content
 	}
 	.menu {
-		
+		width: fit-content;
+		display: flex;
+		flex-direction: row;
+		gap: 20px;
 	}
 	.menu .item {
+		width: fit-content;
 		font-weight: 400;
 		font-size: 24px;
 		color: #377dff;
+		text-decoration: none;
 	}
 	html {
 		font-family: system-ui, sans-serif;
 		background: #fff;
 	}
+	header{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
 	footer{
 		margin-top: 500px;
+	}
+	@media (max-width: 800px){
+		.humburger{
+			display: block;
+		}
+		.hamburger {
+			width: 35px;
+			height: 30px;
+			display: flex;
+			flex-direction: column;
+			justify-content: space-between;
+			cursor: pointer;
+		}
+
+		.line {
+			width: 100%;
+			height: 5px;
+			background-color: #377dff;
+			transition: all 0.3s ease;
+		}
+		header{
+			height: 60px;
+		}
+		.menu {
+			position: absolute;
+			background-color: #377dff;
+			display: flex;
+			flex-direction: column;
+			width: calc(100% - 60px);
+			/* top: 70px; */
+			top: -300px;
+			left: 0;
+			padding: 40px;
+		}
+		.menu .item{
+			color: white
+		}
+
+		.hamburger.active{
+			transform: translateX(0%);
+		}
+
+		.hamburger.active .top {
+			transform: rotate(45deg) translateY(350%);
+		}
+
+		.hamburger.active .middle {
+			opacity: 0;
+		}
+
+		.hamburger.active .bottom {
+			transform: rotate(-45deg) translateY(-350%);
+		}
+		.menu.active {
+			top: 70px; /* Показываем меню */
+		}
 	}
 	code {
 		font-family:

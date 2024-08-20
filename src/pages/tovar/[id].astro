@@ -1,53 +1,21 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import StoryblokClient from 'storyblok-js-client'
-// Initialize the client with the oauth token
-const Storyblok = new StoryblokClient({
-  accessToken: "aZO4rIbH4xJiemmkvqBb0gtt",
-});
-// 537160376
-// export async function get({ request }) {
-// 	const url = new URL(request.url);
-// 	const id = url.searchParams.get('id');
-// 	console.log(id)
-// }
-// console.log(url)
-// Функция для получения товаров
-async function fetchTovars() {
-  const response = await Storyblok.get('cdn/stories', {
-    version: 'published'
-  });
-  return response.data.stories;
-}
+import {getTovars, getItem, urlFor } from '../../sanityclient'
 
-// Функция для получения конкретного товара по ID
-async function fetchTovar(id) {
-  const response = await Storyblok.get(`cdn/stories/${id}`, {});
-  return response.data.story.content;
-}
-
-// Функция для генерации путей на основе товаров
 export async function getStaticPaths() {
-  const tovars = await fetchTovars(); // Здесь мы вызываем fetchTovars для получения всех товаров
+  const tovars = await getTovars(); // Получаем все товары
 
   return tovars.map((post) => ({
-    params: { id: post.id.toString() }, // Убедитесь, что ID в виде строки
+    params: { id: post._id.toString() }, // Генерация пути на основе ID товара
   }));
 }
 
 
+const id = Astro.url.pathname.split("/").at(-1)
 
+const tovar = await getItem(id);
 
-const { id } = Astro.params;
-
-const tovar = await fetchTovar(537160376);
-
-
-
-
-
-// console.log(tovars)
-// console.log(tovar)
+console.log(tovar)
 ---
 
 
@@ -63,16 +31,16 @@ const tovar = await fetchTovar(537160376);
 		<div class="block">
 			<div class="info">
 				<h4>{tovar.short_title}</h4>
-				<p>{tovar.first_desc}</p>
+				<p>{tovar.first_description}</p>
 			</div>
-			<img src={tovar.image1.filename}>
+			<img src={urlFor(tovar.image1).url()}>
 		</div>
 
 		<div class="block">
-			<img src={tovar.image2.filename}>
+			<img src={urlFor(tovar.image2).url()}>
 			<disv class="info">
 				<span class=price_with_work>{tovar.price_with_work}</span>
-				<p>{tovar.work_desc}</p>
+				<p>{tovar.work_description}</p>
 			</div>
 		</div>
 	</main>

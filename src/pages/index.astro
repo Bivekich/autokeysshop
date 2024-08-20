@@ -2,45 +2,15 @@
 import Layout from '../layouts/Layout.astro';
 import TovarList from '../components/TovarList.astro';
 import UslugiList from '../components/UslugiList.astro';
-import Usluga from '../components/Usluga.astro';
 import AboutUsBigBlock from '../components/AboutUsBigBlock.astro';
 import AboutUsSmallBlock from '../components/AboutUsSmallBlock.astro';
-import StoryblokClient from 'storyblok-js-client'
-
-// Initialize the client with the oauth token
-// 2. Initialize the Client with the token
-const Storyblok = new StoryblokClient({
-  accessToken: "aZO4rIbH4xJiemmkvqBb0gtt",
-});
-// 39985
-// 3. Retrieve stories
-// Storyblok.get('cdn/spaces/me', {})
-//   .then(response => {
-//     console.log(response)
-//   }).catch(error => { 
-//     console.log(error)
-//   })
-
-async function fetchTovars() {
-  return Storyblok.get('cdn/stories', {
-    "with_tag": "tovar",
-    "version": "published"
-  })
-  .then(response => response.data.stories); // Возвращаем товары
-}
-
-async function fetchUslugi() {
-  return Storyblok.get('cdn/stories', {
-	"with_tag": "usluga",
-    "version": "published"
-  })
-  .then(response => response.data.stories); // Возвращаем товары
-}
+import { getTovars, getUslugi, getOtzivi } from '../sanityclient'
+import Slider from '../components/Slider.astro';
 
 // Вызов родительской функции
-const tovars = await fetchTovars();
-const uslugi = await fetchUslugi();
-console.log(uslugi) 
+const tovars = await getTovars();
+const uslugi = await getUslugi();
+const otzivi = await getOtzivi();
 ---
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/tiny-slider.css">
 		<!--[if (lt IE 9)]><script src="https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.4/min/tiny-slider.helper.ie8.js"></script><![endif]-->
@@ -64,7 +34,7 @@ console.log(uslugi)
 			</div>
 		</div>
 
-		<div class="aboutus">
+		<div class="aboutus" id="aboutus">
 			<div class="aboutus-block">
 				<h5>О Нас</h5>
 				<p>
@@ -90,43 +60,14 @@ console.log(uslugi)
 			</div>
 		</div>
 
-		<div class="callback">
-			<div class="my-slider">
-				<div>11111111111111111</div>
-				<div>211111111111111111</div>
-				<div>311111111111111111</div>
-			</div>
+		<div class="callback" id="callback">
+			<Slider slides={otzivi}/>
 		</div>
 
-		<div class="uslugi">
+		<div class="uslugi" id="uslugi">
 			<h2>Профессиональные услуги по вскрытию авто, изготовлению ключей, прошивке евро2 STAGE-1 и ремонту замков</h2>
 			<div class="uslugi-block">
 				<UslugiList uslugi={uslugi} />
-				
-				<Usluga
-					image_src="uploads/image2.png"
-					title="Вскрытие авто"
-					price="5000"
-					question="Для чего применяют?"
-					body="Если владелец потерял ключи от автомобиля, вскрытие позволяет получить доступ к салону и запустить двигатель."
-					href=""
-				/>
-				<Usluga
-					image_src="uploads/image2.png"
-					title="Вскрытие авто"
-					price="5000"
-					question="Для чего применяют?"
-					body="Если владелец потерял ключи от автомобиля, вскрытие позволяет получить доступ к салону и запустить двигатель."
-					href=""
-				/>
-				<Usluga
-					image_src="uploads/image2.png"
-					title="Вскрытие авто"
-					price="5000"
-					question="Для чего применяют?"
-					body="Если владелец потерял ключи от автомобиля, вскрытие позволяет получить доступ к салону и запустить двигатель."
-					href=""
-				/>
 			</div>
 		</div>
 		<div class="tovari">
@@ -162,8 +103,8 @@ console.log(uslugi)
 		line-height: 1.6;
 	}
 	.callback{
-		margin: 100px;
-		padding: 100px;
+		margin: 100px 50px;
+		padding: 100px 0;
 		border: 1px solid #000;
 		border-left: 0;
 		border-right: 0;
@@ -231,8 +172,8 @@ console.log(uslugi)
 	}
 	.info {
 		border-radius: 10px;
-		max-width: 440px;
-		min-height: 316px;
+		max-width: 400px;
+		min-height: 216px;
 		width: 100%;
 		height: fit-content;
 		background: #377dff;
@@ -317,5 +258,19 @@ console.log(uslugi)
 	.tns-nav{
 		width: fit-content;
 		margin: auto;
+	}
+
+	
+	@media (max-width: 600px){
+		.info-block{
+			transform: translateY(-10%);
+			align-items: start;
+		}
+		.info-block img {
+			display: none;
+		}
+		.info{
+			max-width: 100%;
+		}
 	}
 </style>

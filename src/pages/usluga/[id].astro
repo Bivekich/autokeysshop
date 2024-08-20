@@ -1,0 +1,180 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import StoryblokClient from 'storyblok-js-client';
+import {getUslugi, getItem, urlFor } from '../../sanityclient';
+
+// Initialize the client with the oauth token
+const Storyblok = new StoryblokClient({
+  accessToken: "aZO4rIbH4xJiemmkvqBb0gtt",
+});
+// 537257932
+// export async function get({ request }) {
+// 	const url = new URL(request.url);
+// 	const id = url.searchParams.get('id');
+// 	console.log(id)
+// }
+// console.log(url)
+
+async function fetchTovars() {
+  return Storyblok.get('cdn/stories/537257932', {})
+  .then(response => response.data.story.content); // Возвращаем товары
+}
+// console.log(tovars)
+// console.log(tovar)
+
+export async function getStaticPaths() {
+  const uslugi = await getUslugi(); // Получаем все товары
+
+  return uslugi.map((post) => ({
+    params: { id: post._id.toString() }, // Генерация пути на основе ID товара
+  }));
+}
+
+
+const id = Astro.url.pathname.split("/").at(-1)
+
+const usluga = await getItem(id);
+
+console.log(usluga)
+---
+
+
+<Layout title="Auto Keys Shop - Согласие на обработку персональных данных">
+	<main>
+		<h1 class="maintitle">
+			Экспертный сервис для вашего авто
+		</h1>
+		<span class="startSpan">
+			Изготовление ключей, прошивка евро2 STAGE-1 и ремонт замков <br> по лучшим ценам!
+		</span>
+		<div class="mainimage-block">
+			<img src={urlFor(usluga.image1).url()} class="mainimage">
+			<div class="info-block">
+				<div class="info">
+					<h3>Почему выбирают нас?</h3>
+					<p>Мы гордимся нашей командой опытных специалистов, которые знают все тонкости работы с автомобилями.</p>
+				</div>
+			</div>
+		</div>
+        <article>
+            <h3>{usluga.full_title}</h3>
+            <p>{usluga.paragraph1}</p>
+            <div class="paragraph_with_photo">
+                <p>{usluga.paragraph2}</p>
+                <img src={urlFor(usluga.image2).url()} alt="">
+            </div>
+            <p>{usluga.paragraph3}</p>
+        </article>
+	</main>
+</Layout>
+
+<style>
+	main{
+		max-width: 1000px;
+		width: 100%;
+		margin: auto;
+	}
+    article{
+        border-radius: 10px;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+        background: #ebf2ff;
+        padding: 10px 30px;
+    }
+    .paragraph_with_photo{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .paragraph_with_photo img {
+        width: 50%;
+    }
+    .paragraph_with_photo p {
+        font-weight: 600;
+        width: 50%;
+    }
+    .block{
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 40px;
+		margin: 70px 0;
+	}
+	.block img {
+		max-width: 40%;
+		width: 100%;
+		min-width: 400px;
+	}
+	.info{
+		display: flex;
+		flex-direction: column;
+		width: 50%;
+	}
+	.price_with_work{
+		font-weight: 400;
+		font-size: 20px;
+		color: #fff;
+		border-radius: 12px;
+		background: #377dff;
+		padding: 10px 15px;
+		margin: 30px 0 60px 0;
+	}
+    .mainimage{
+		width: 100%;
+		margin-top: 60px;
+	}
+	.mainimage-block{
+		display: flex;
+		flex-direction: column;
+	}
+	.info-block{
+		display: flex;
+		flex-direction: row;
+		align-items: end;
+		justify-content: start;
+		transform: translateY(
+			-75%
+		);
+	}
+	.info-img{
+		margin: 15px;
+	}
+	.info {
+		border-radius: 10px;
+		max-width: 400px;
+		min-height: 216px;
+		width: 100%;
+		height: fit-content;
+		background: #377dff;
+		padding: 30px;
+		
+	}
+	.info h3{
+		font-family: var(--font-family);
+		font-weight: 600;
+		font-size: 28px;
+		color: #97bcff;
+	}
+	.info p{
+		font-family: var(--font-family);
+		font-weight: 600;
+		font-size: 24px;
+		color: #fff;
+	}
+	.maintitle{
+		max-width: 600px;
+		width: 100%;
+		font-weight: 600;
+		font-size: 52px;
+		color: #000;
+		text-align: start;
+		margin: 0;
+		margin-bottom: 20px;
+	}
+	.startSpan{
+		font-family: var(--font-family);
+		font-weight: 600;
+		font-size: 22px;
+		color: #6777a7;
+	}
+</style>

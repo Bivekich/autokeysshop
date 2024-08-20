@@ -1,18 +1,6 @@
 ---
 import Tovar from './Tovar.astro';
-
-interface TovarProps {
-  id: number;
-  content: {
-    brand: string;
-    image1: { filename: string };
-    full_title: string;
-  };
-}
-
-interface Props {
-  tovars: TovarProps[];
-}
+import { urlFor } from '../sanityclient'
 
 const { tovars } = Astro.props;
 
@@ -24,16 +12,16 @@ if (Object.keys(tovars).length > 0) {
   for (let i = 0; i < Object.keys(tovars).length; i++) {
     const tovar = tovars[i];
     tovarElements.push({
-        image_src: tovar.content.image1.filename,
-        brand: tovar.content.brand,
-        title: tovar.content.full_title,
-        href: `/tovar/${tovar.id}`
+        image_src: urlFor(tovar.image1).url(),
+        brand: tovar.brand,
+        title: tovar.full_title,
+        href: `/tovar/${tovar._id}`
     });
   }
 } else {
   tovarElements.push('<p>Нет доступных товаров.</p>');
 }
-console.log(tovarElements)
+// console.log(tovarElements)
 ---
 
 {tovarElements.map((elem) => {
