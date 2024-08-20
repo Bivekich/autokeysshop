@@ -1,82 +1,155 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import {getTovars, getItem, urlFor } from '../../sanityclient'
+import { getTovars, getItem, urlFor } from '../../sanityclient';
 
+// Fetch all tovars and generate static paths
 export async function getStaticPaths() {
-  const tovars = await getTovars(); // Получаем все товары
-
+  const tovars = await getTovars(); // Fetch all items
+  
+  // Return paths directly as an array
   return tovars.map((post) => ({
-    params: { id: post._id.toString() }, // Генерация пути на основе ID товара
+    params: { id: post._id.toString() }, // Generate path based on item ID
   }));
 }
 
-
-const id = Astro.url.pathname.split("/").at(-1)
-
+const id = Astro.url.pathname.split("/").at(-1);
 const tovar = await getItem(id);
 
-console.log(tovar)
+const show = tovar && Object.keys(tovar).length > 0;
+console.log(tovar);
 ---
-
-
-<Layout title="Auto Keys Shop - Согласие на обработку персональных данных">
-	<main>
-		<span class="tovar">
-			Товар
-		</span>
-		<h3 class=full_name>
-			{tovar.full_title}
-		</h3>
-
-		<div class="block">
-			<div class="info">
-				<h4>{tovar.short_title}</h4>
-				<p>{tovar.first_description}</p>
-			</div>
-			<img src={urlFor(tovar.image1).url()}>
-		</div>
-
-		<div class="block">
-			<img src={urlFor(tovar.image2).url()}>
-			<disv class="info">
-				<span class=price_with_work>{tovar.price_with_work}</span>
-				<p>{tovar.work_description}</p>
-			</div>
-		</div>
-	</main>
-</Layout>
-
+{show && (
+  <Layout title="Auto Keys Shop - Согласие на обработку персональных данных">
+    <main>
+      <h1 class="maintitle">Экспертный сервис для вашего авто</h1>
+      <span class="startSpan">
+        Изготовление ключей, прошивка евро2 STAGE-1 и ремонт замков <br /> по лучшим ценам!
+      </span>
+      <div class="mainimage-block">
+        <img src={urlFor(tovar.image1).url()} class="mainimage" alt="Main Image" />
+        <div class="info-block">
+          <div class="info">
+            <h3>Почему выбирают нас?</h3>
+            <p>Мы гордимся нашей командой опытных специалистов, которые знают все тонкости работы с автомобилями.</p>
+          </div>
+        </div>
+      </div>
+      <article>
+        <h3>{tovar.full_title}</h3>
+        <p>{tovar.paragraph1}</p>
+        <div class="paragraph_with_photo">
+          <p>{tovar.paragraph2}</p>
+          <img src={urlFor(tovar.image2).url()} alt="Additional Image" />
+        </div>
+        <p>{tovar.paragraph3}</p>
+      </article>
+    </main>
+  </Layout>
+)}
 <style>
-	main{
-		max-width: 1000px;
-		width: 100%;
-		margin: auto;
-	}
-    .block{
-		width: 100%;
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		gap: 40px;
-		margin: 70px 0;
-	}
-	.block img {
-		max-width: 40%;
-		width: 100%;
-		min-width: 400px;
-	}
-	.info{
-		display: flex;
-		flex-direction: column;
-		width: 50%;
-	}
-	.price_with_work{
-		font-weight: 400;
-		font-size: 20px;
-		color: #fff;
-		border-radius: 12px;
-		background: #377dff;
-		padding: 10px 15px;
-		margin: 30px 0 60px 0;
-	}
+  main {
+    max-width: 1000px;
+    width: 100%;
+    margin: auto;
+  }
+  article {
+    border-radius: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    background: #ebf2ff;
+    padding: 10px 30px;
+  }
+  .paragraph_with_photo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  .paragraph_with_photo img {
+    width: 50%;
+  }
+  .paragraph_with_photo p {
+    font-weight: 600;
+    width: 50%;
+  }
+  .block {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 40px;
+    margin: 70px 0;
+  }
+  .block img {
+    max-width: 40%;
+    width: 100%;
+    min-width: 400px;
+  }
+  .info {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+  }
+  .price_with_work {
+    font-weight: 400;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 12px;
+    background: #377dff;
+    padding: 10px 15px;
+    margin: 30px 0 60px 0;
+  }
+  .mainimage {
+    width: 100%;
+    margin-top: 60px;
+  }
+  .mainimage-block {
+    display: flex;
+    flex-direction: column;
+  }
+  .info-block {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: start;
+    transform: translateY(-75%);
+  }
+  .info-img {
+    margin: 15px;
+  }
+  .info {
+    border-radius: 10px;
+    max-width: 400px;
+    min-height: 216px;
+    width: 100%;
+    height: fit-content;
+    background: #377dff;
+    padding: 30px;
+  }
+  .info h3 {
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 28px;
+    color: #97bcff;
+  }
+  .info p {
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 24px;
+    color: #fff;
+  }
+  .maintitle {
+    max-width: 600px;
+    width: 100%;
+    font-weight: 600;
+    font-size: 52px;
+    color: #000;
+    text-align: start;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+  .startSpan {
+    font-family: var(--font-family);
+    font-weight: 600;
+    font-size: 22px;
+    color: #6777a7;
+  }
 </style>
