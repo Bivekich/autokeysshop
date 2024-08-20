@@ -1,237 +1,253 @@
 ---
 interface Props {
-	title: string;
+    title: string;
 }
 
 const { title } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
-	</head>
-	<body>
-		<header>
-			<span class="logo">
-				Auto Keys Shop
-			</span>
-			<div class="hamburger" id="hamburger">
-				<span class="line top"></span>
-				<span class="line middle"></span>
-				<span class="line bottom"></span>
-			</div>
-			<nav class="menu" id="menu">
-				<a href="/" class="item main">
-					Главная
-				</a>
-				<a href="/#aboutus" class="item aboutus">
-					О нас
-				</a>
-				<a href="/#callback" class="item callback">
-					Отзывы
-				</a>
-				<a href="/#uslugi" class="item uslugi">
-					Услуги
-				</a>
-
-			</nav>
-			
-			
-			  
-		</header>
-		<slot />
-		
-		<footer>
-			<h1>Auto Keys Shop</h1>
-			<h2>© Auto Keys Shop 2024. Все права защищены.</h2>
-			<div class="links">
-				<a href="/PrivacyPolicy">
-					Политика конфиденциальности
-				</a>
-				<a href="/PersonalData">
-					Согласие на обработку персональных данных
-				</a>
-			</div>
-			<div class="links">
-				<a href="">
-					<img src="/public/tg.svg" alt="">
-				</a>
-				<a href="">
-					<img src="/public/tg.svg" alt="">
-				</a>
-			</div>
-			<div class="links">
-				<a href="biveki.ru" class="latest_link">
-					Made with ❤️ by <u>Лев Данилов</u>
-				</a>
-			</div>
-		</footer>
-	</body>
-</html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="description" content="Astro description" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <script src="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.4/dist/min/tiny-slider.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tiny-slider@2.9.4/dist/tiny-slider.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <span class="logo">Auto Keys Shop</span>
+            <div class="hamburger" id="hamburger">
+                <span class="line"></span>
+                <span class="line"></span>
+                <span class="line"></span>
+            </div>
+            <nav class="menu" id="menu">
+                <a href="/" class="item main">Главная</a>
+                <a href="/#aboutus" class="item aboutus">О нас</a>
+                <a href="/#callback" class="item callback">Отзывы</a>
+                <a href="/#uslugi" class="item uslugi">Услуги</a>
+                <a href="/#products" class="item products">Товары</a>
+                <a href="/#contacts" class="item contacts button">Контакты</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <slot />
+    </main>
+    <footer>
+        <h1>Auto Keys Shop</h1>
+        <h2>© Auto Keys Shop 2024. Все права защищены.</h2>
+        <div class="links">
+            <a href="https://wa.me/79153751109"><img src="/ws.svg" alt="WhatsUp" /></a>
+            <a href="/PrivacyPolicy">Политика конфиденциальности</a>
+            <a href="/PersonalData">Согласие на обработку персональных данных</a>
+        </div>
+        <div class="links">
+            <a href="https://biveki.ru" class="latest_link">Made with ❤️ by <u>Лев Данилов</u></a>
+        </div>
+    </footer>
+</body>
 <script>
-	document.getElementById("hamburger").onclick = function() {
-		const hamburger = document.getElementById("hamburger");
-		const menu = document.getElementById("menu");
+    document.getElementById("hamburger").onclick = function() {
+        const hamburger = document.getElementById("hamburger");
+        const menu = document.getElementById("menu");
 
-		// Переключение класса active для гамбургер-меню
-		hamburger.classList.toggle("active");
-
-		// Переключение класса active для меню
-		menu.classList.toggle("active");
-	};
-
+        hamburger.classList.toggle("active");
+        menu.classList.toggle("active");
+    };
 </script>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-  		--font-family: "Inter", sans-serif;
-	}
-	.latest_link{
-        text-decoration: none;
-        font-weight: 600;
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", sans-serif;
     }
-	.links{
+
+    :root {
+        --accent: 136, 58, 234;
+        --accent-light: 224, 204, 250;
+        --accent-dark: 49, 10, 101;
+        --accent-gradient: linear-gradient(
+            45deg,
+            rgb(var(--accent)),
+            rgb(var(--accent-light)) 30%,
+            white 60%
+        );
+        --font-family: "Inter", sans-serif;
+    }
+
+    header {
+        background-color: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .header-content {
+        max-width: 1200px;
+        width: 100%;
+        margin: 0 auto;
         display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 50px;
+        justify-content: space-between;
         align-items: center;
-        justify-content: center;
-        margin: 30px 0;
+        padding: 15px 20px;
     }
-    .links a {
+
+    .logo {
+        font-weight: 600;
+        font-size: 1.75rem;
+        color: #377dff;
+    }
+
+    .hamburger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 35px;
+        height: 30px;
+        cursor: pointer;
+    }
+
+    .line {
+        width: 100%;
+        height: 4px;
+        background-color: #377dff;
+        transition: all 0.3s ease;
+    }
+
+    .menu {
+        display: flex;
+        gap: 20px;
+    }
+
+    .menu .item {
+			margin: auto;
+        font-size: 1rem;
+        color: #677788;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .menu .item:hover {
+        color: #377dff;
+    }
+
+    .item.contacts.button {
+        background-color: #377dff;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        font-weight: 500;
+    }
+
+    .item.contacts.button:hover {
+        background-color: #0056b3;
+    }
+
+    footer {
+        background: #f8f9fa;
+        padding: 2rem 1rem;
+        text-align: center;
+        border-top: 1px solid #e9ecef;
+    }
+
+    footer h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
         color: #000;
     }
-	.logo{
-		font-weight: 600;
-		font-size: 48px;
-		color: #377dff;
-	}
-	footer{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		margin: auto;
-	}
-	.humburger {
-		display: none
-	}
-	footer,
-	footer * {
-		width: fit-content
-	}
-	.menu {
-		width: fit-content;
-		display: flex;
-		flex-direction: row;
-		gap: 20px;
-	}
-	.menu .item {
-		width: fit-content;
-		font-weight: 400;
-		font-size: 24px;
-		color: #677788;
-		text-decoration: none;
-	}
-	.menu .item:hover{
-		color: #377dff;
-	}
-	.item.main{
-		color: #377dff;
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #fff;
-	}
-	header{
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: 50px;
-	}
-	footer{
-		margin-top: 200px;
-	}
-	@media (max-width: 800px){
-		.humburger{
-			display: block;
-		}
-		.hamburger {
-			width: 35px;
-			height: 30px;
-			display: flex;
-			flex-direction: column;
-			justify-content: space-between;
-			cursor: pointer;
-		}
 
-		.line {
-			width: 100%;
-			height: 5px;
-			background-color: #377dff;
-			transition: all 0.3s ease;
-		}
-		header{
-			height: 60px;
-		}
-		.menu {
-			position: absolute;
-			background-color: #377dff;
-			display: flex;
-			flex-direction: column;
-			width: calc(100% - 60px);
-			/* top: 70px; */
-			top: -300px;
-			left: 0;
-			padding: 40px;
-		}
-		.menu .item{
-			color: white
-		}
+    footer h2 {
+        font-size: 1rem;
+        font-weight: 400;
+        color: #677788;
+        margin-top: 0.5rem;
+    }
 
-		.hamburger.active{
-			transform: translateX(0%);
-		}
+    .links {
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        margin: 1rem 0;
+    }
 
-		.hamburger.active .top {
-			transform: rotate(45deg) translateY(350%);
-		}
+    .links a {
+        color: #000;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
 
-		.hamburger.active .middle {
-			opacity: 0;
-		}
+    .links a:hover {
+        color: #377dff;
+    }
 
-		.hamburger.active .bottom {
-			transform: rotate(-45deg) translateY(-350%);
-		}
-		.menu.active {
-			top: 70px; /* Показываем меню */
-		}
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+    .links a img {
+        width: 48px;
+    }
+
+    .latest_link {
+        text-decoration: none;
+        font-weight: 500;
+    }
+
+    .hamburger.active .line:nth-child(1) {
+        transform: rotate(45deg) translateY(8px);
+    }
+
+    .hamburger.active .line:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .line:nth-child(3) {
+        transform: rotate(-45deg) translateY(-8px);
+    }
+
+    .menu.active {
+        display: flex;
+        position: absolute;
+        background-color: #377dff;
+        width: calc(100% - 30px);
+        top: 60px;
+        left: 15px;
+        flex-direction: column;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 10;
+    }
+
+    .menu.active .item {
+        color: white;
+        margin-bottom: 10px;
+    }
+
+    @media (max-width: 800px) {
+        .hamburger {
+            display: flex;
+        }
+
+        .menu {
+            display: none;
+            flex-direction: column;
+        }
+
+        .menu.active {
+            display: flex;
+        }
+
+        .item.contacts.button {
+            background-color: white;
+            color: #377dff;
+        }
+
+        .item.contacts.button:hover {
+            background-color: #377dff;
+            color: #fff;
+        }
+    }
 </style>

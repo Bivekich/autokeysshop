@@ -37,5 +37,9 @@ export const tovarType = defineType({
       name: 'image2',
       type: 'image',
     }),
+    defineField({
+      name: 'AvitoURL',
+      type: 'text',
+    }),
   ],
 })

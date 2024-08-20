@@ -1,42 +1,30 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import StoryblokClient from 'storyblok-js-client';
 import { getUslugi, getItem, urlFor } from '../../sanityclient';
 
-// Initialize the Storyblok client with the access token
-const Storyblok = new StoryblokClient({
-  accessToken: "aZO4rIbH4xJiemmkvqBb0gtt",
-});
-
-// Function to fetch tovars from Storyblok (currently not used in this component)
-async function fetchTovars() {
-  return Storyblok.get('cdn/stories/537257932', {})
-    .then(response => response.data.story.content); // Fetches and returns content
-}
-
-// Static paths for dynamic routing
 export async function getStaticPaths() {
-  const uslugi = await getUslugi(); // Fetches all "uslugi"
+  const uslugi = await getUslugi();
 
   return uslugi.map((post) => ({
-    params: { id: post._id.toString() }, // Generate path based on item ID
+    params: { id: post._id.toString() },
   }));
 }
 
-// Fetch specific "usluga" item based on the ID from URL
 const id = Astro.url.pathname.split("/").at(-1);
 const usluga = await getItem(id);
 const show = usluga && Object.keys(usluga).length > 0;
-console.log(usluga);
 ---
 {show && (
-  <Layout title="Auto Keys Shop - Согласие на обработку персональных данных">
+  <Layout title="Auto Keys Shop - Услуга">
     <main>
-      <h1 class="maintitle">Экспертный сервис для вашего авто</h1>
-      <span class="startSpan">
-        Изготовление ключей, прошивка евро2 STAGE-1 и ремонт замков <br /> по лучшим ценам!
-      </span>
-      <div class="mainimage-block">
+      <section class="hero">
+        <h1 class="maintitle">Экспертный сервис для вашего авто</h1>
+        <p class="startSpan">
+          Изготовление ключей, прошивка евро2 STAGE-1 и ремонт замков <br /> по лучшим ценам!
+        </p>
+      </section>
+
+      <section class="mainimage-block">
         <img src={urlFor(usluga.image1).url()} class="mainimage" alt="Main Image" />
         <div class="info-block">
           <div class="info">
@@ -44,7 +32,8 @@ console.log(usluga);
             <p>Мы гордимся нашей командой опытных специалистов, которые знают все тонкости работы с автомобилями.</p>
           </div>
         </div>
-      </div>
+      </section>
+
       <article>
         <h3>{usluga.full_title}</h3>
         <p>{usluga.paragraph1}</p>
@@ -58,109 +47,128 @@ console.log(usluga);
   </Layout>
 )}
 <style>
+  body {
+    font-family: 'Geologica', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #333;
+  }
+
   main {
-    max-width: 1000px;
+    max-width: 1200px;
     width: 100%;
     margin: auto;
+    padding: 2rem;
   }
-  article {
-    border-radius: 10px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-    background: #ebf2ff;
-    padding: 10px 30px;
+
+  .hero {
+    text-align: center;
+    margin-bottom: 2rem;
   }
-  .paragraph_with_photo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+
+  .maintitle {
+    font-size: 3rem;
+    color: #000;
+    margin-bottom: 1rem;
   }
-  .paragraph_with_photo img {
-    width: 50%;
+
+  .startSpan {
+    font-size: 1.5rem;
+    color: #6777a7;
+    line-height: 1.5;
   }
-  .paragraph_with_photo p {
-    font-weight: 600;
-    width: 50%;
-  }
-  .block {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 40px;
-    margin: 70px 0;
-  }
-  .block img {
-    max-width: 40%;
-    width: 100%;
-    min-width: 400px;
-  }
-  .info {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-  }
-  .price_with_work {
-    font-weight: 400;
-    font-size: 20px;
-    color: #fff;
-    border-radius: 12px;
-    background: #377dff;
-    padding: 10px 15px;
-    margin: 30px 0 60px 0;
-  }
-  .mainimage {
-    width: 100%;
-    margin-top: 60px;
-  }
+
   .mainimage-block {
     display: flex;
     flex-direction: column;
+    margin-top: 2rem;
   }
+
+  .mainimage {
+    width: 100%;
+    border-radius: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .mainimage:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  }
+
   .info-block {
     display: flex;
-    flex-direction: row;
-    align-items: end;
-    justify-content: start;
-    transform: translateY(-75%);
+    justify-content: center;
+    margin-top: -2rem;
   }
-  .info-img {
-    margin: 15px;
-  }
+
   .info {
+    background-color: #377dff;
+    color: #fff;
+    padding: 2rem;
     border-radius: 10px;
-    max-width: 400px;
-    min-height: 216px;
-    width: 100%;
-    height: fit-content;
-    background: #377dff;
-    padding: 30px;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
   }
+
   .info h3 {
-    font-family: var(--font-family);
-    font-weight: 600;
-    font-size: 28px;
+    font-size: 1.75rem;
     color: #97bcff;
   }
+
   .info p {
-    font-family: var(--font-family);
-    font-weight: 600;
-    font-size: 24px;
-    color: #fff;
+    font-size: 1.25rem;
   }
-  .maintitle {
-    max-width: 600px;
+
+  article {
+    background: #ebf2ff;
+    border-radius: 10px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+
+  .paragraph_with_photo {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .paragraph_with_photo img {
     width: 100%;
-    font-weight: 600;
-    font-size: 52px;
-    color: #000;
-    text-align: start;
-    margin: 0;
-    margin-bottom: 20px;
+    max-width: 500px;
+    border-radius: 10px;
   }
-  .startSpan {
-    font-family: var(--font-family);
-    font-weight: 600;
-    font-size: 22px;
-    color: #6777a7;
+
+  .paragraph_with_photo p {
+    flex: 1;
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .maintitle {
+      font-size: 2.5rem;
+    }
+
+    .startSpan {
+      font-size: 1.25rem;
+    }
+
+    .info-block {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .paragraph_with_photo {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .paragraph_with_photo img {
+      max-width: 100%;
+    }
   }
 </style>
