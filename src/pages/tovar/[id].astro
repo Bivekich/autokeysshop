@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getTovars, getItem, urlFor } from '../../sanityclient';
+import { getTovars, getItem } from '../../sanityclient';
 
 export async function getStaticPaths() {
   const tovars = await getTovars();
@@ -12,10 +12,7 @@ export async function getStaticPaths() {
 
 const id = Astro.url.pathname.split("/").at(-1);
 const tovar = await getItem(id);
-
-const show = tovar && Object.keys(tovar).length > 0;
 ---
-{show && (
   <Layout title={`Auto Keys Shop - ${tovar.short_title}`}>
     <main>
       <h1 class="maintitle">{tovar.full_title}</h1>
@@ -23,7 +20,7 @@ const show = tovar && Object.keys(tovar).length > 0;
         {tovar.first_description}
       </span>
       <div class="mainimage-block">
-        <img src={urlFor(tovar.image1).url()} class="mainimage" alt="Main Image" />
+        <img src={tovar.image1.asset.url} class="mainimage" alt="Main Image" />
         <div class="info-block">
           <div class="info">
             <h3>Почему выбирают нас?</h3>
@@ -36,14 +33,13 @@ const show = tovar && Object.keys(tovar).length > 0;
         <p>{tovar.price_with_work}</p>
         <div class="paragraph_with_photo">
           <p>{tovar.work_description}</p>
-          <img src={urlFor(tovar.image2).url()} alt="Additional Image" />
+          <img src={tovar.image2.asset.url} alt="Additional Image" />
         </div>
         <p>{tovar.short_title}</p>
-        <a href={tovar['Avito URL']} class="buy-button" target="_blank">Купить</a>
+        <a href={tovar.AvitoURL} class="buy-button" target="_blank">Купить</a>
       </article>
     </main>
   </Layout>
-)}
 <style>
   main {
     max-width: 1000px;

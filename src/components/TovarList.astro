@@ -1,6 +1,5 @@
 ---
 import Tovar from './Tovar.astro';
-import { urlFor } from '../sanityclient'
 
 const { tovars } = Astro.props;
 
@@ -12,7 +11,7 @@ if (Object.keys(tovars).length > 0) {
   for (let i = 0; i < Object.keys(tovars).length; i++) {
     const tovar = tovars[i];
     tovarElements.push({
-        image_src: urlFor(tovar.image1).url(),
+        image_src: tovar.image1.asset.url,
         brand: tovar.brand,
         title: tovar.full_title,
         href: `/tovar/${tovar._id}`
@@ -21,7 +20,6 @@ if (Object.keys(tovars).length > 0) {
 } else {
   tovarElements.push('<p>Нет доступных товаров.</p>');
 }
-// console.log(tovarElements)
 ---
 
 {tovarElements.map((elem) => {

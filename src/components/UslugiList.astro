@@ -1,18 +1,15 @@
 ---
 import Usluga from './Usluga.astro';
-import { urlFor } from '../sanityclient'
 
 const { uslugi } = Astro.props;
 
 let uslugaElements = [];
 
-// console.log(uslugi)
-
 if (Object.keys(uslugi).length > 0) {
   for (let i = 0; i < Object.keys(uslugi).length; i++) {
     const usluga = uslugi[i];
     uslugaElements.push({
-        image_src: urlFor(usluga.image1).url(),
+        image_src: usluga.image1,
         price: usluga.price,
         title: usluga.small_title,
         question: usluga.question,
@@ -23,13 +20,12 @@ if (Object.keys(uslugi).length > 0) {
 } else {
   uslugaElements.push('<p>Нет доступных товаров.</p>');
 }
-// console.log(uslugaElements)
 ---
 
 {uslugaElements.map((elem) => {
     return (
         <Usluga
-            image_src={elem.image_src}
+            image_src={elem.image_src.asset.url}
             title={elem.title}
             price={elem.price}
             question={elem.question}

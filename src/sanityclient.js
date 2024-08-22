@@ -1,31 +1,103 @@
-import { createClient } from '@sanity/client';
-import imageUrlBuilder from '@sanity/image-url';
+import { sanityClient } from 'sanity:client';
 
-export const client = createClient({
-  projectId: '20ujrfez',
-  dataset: 'production',
-  useCdn: true,
-  apiVersion: '2023-05-03',
-});
-const builder = imageUrlBuilder(client);
-
-export function urlFor(source) {
-  return builder.image(source);
-}
 export async function getTovars() {
-  const tovars = await client.fetch('*[_type == "tovar"]');
-  return tovars;
+  const query = `*[_type == "tovar"]{
+    _id,
+    full_title,
+    short_title,
+    brand,
+    first_description,
+    price_with_work,
+    work_description,
+    image1{
+      asset->{
+        url
+      }
+    },
+    image2{
+      asset->{
+        url
+      }
+    },
+    AvitoURL
+  }`;
+
+  try {
+    const data = await sanityClient.fetch(query);
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch data from Sanity:', error);
+    throw error;
+  }
 }
 export async function getOtzivi() {
-  const otzivi = await client.fetch('*[_type == "otziv"]');
+  const otzivi = await sanityClient.fetch('*[_type == "otziv"]');
   return otzivi;
 }
 
 export async function getUslugi() {
-  const uslugi = await client.fetch('*[_type == "usluga"]');
-  return uslugi;
+  const query = `*[_type == "usluga"]{
+    _id,
+    full_title,
+    short_title,
+    question,
+    price,
+    paragraph1,
+    paragraph2,
+    paragraph3,
+    image1{
+      asset->{
+        url
+      }
+    },
+    image2{
+      asset->{
+        url
+      }
+    }
+  }`;
+
+  try {
+    const data = await sanityClient.fetch(query);
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch data from Sanity:', error);
+    throw error;
+  }
 }
+
 export async function getItem(id) {
-  const item = await client.fetch(`*[_id == "${id}"]`);
-  return item[0];
+  const query = `*[_id == "${id}"]{
+      _id,
+      full_title,
+      paragraph1,
+      paragraph2,
+      paragraph3,
+      price,
+      question,
+      short_title,
+      brand,
+      first_description,
+      price_with_work,
+      work_description,
+      image1{
+        asset->{
+          url
+        }
+      },
+      image2{
+        asset->{
+          url
+        }
+      },
+      AvitoURL
+    }`;
+
+  try {
+    const items = await sanityClient.fetch(query);
+    return items[0];
+  } catch (error) {
+    console.error('Failed to fetch item from Sanity:', error);
+    throw error;
+  }
 }

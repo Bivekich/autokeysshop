@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getUslugi, getItem, urlFor } from '../../sanityclient';
+import { getUslugi, getItem } from '../../sanityclient';
 
 export async function getStaticPaths() {
   const uslugi = await getUslugi();
@@ -12,9 +12,9 @@ export async function getStaticPaths() {
 
 const id = Astro.url.pathname.split("/").at(-1);
 const usluga = await getItem(id);
-const show = usluga && Object.keys(usluga).length > 0;
+console.log(usluga.image1);
+
 ---
-{show && (
   <Layout title="Auto Keys Shop - Услуга">
     <main>
       <section class="hero">
@@ -25,7 +25,7 @@ const show = usluga && Object.keys(usluga).length > 0;
       </section>
 
       <section class="mainimage-block">
-        <img src={urlFor(usluga.image1).url()} class="mainimage" alt="Main Image" />
+        <img src={usluga.image1.asset.url} class="mainimage" alt="Main Image" />
         <div class="info-block">
           <div class="info">
             <h3>Почему выбирают нас?</h3>
@@ -39,13 +39,12 @@ const show = usluga && Object.keys(usluga).length > 0;
         <p>{usluga.paragraph1}</p>
         <div class="paragraph_with_photo">
           <p>{usluga.paragraph2}</p>
-          <img src={urlFor(usluga.image2).url()} alt="Additional Image" />
+          <img src={usluga.image2.asset.url} alt="Additional Image" />
         </div>
         <p>{usluga.paragraph3}</p>
       </article>
     </main>
   </Layout>
-)}
 <style>
   body {
     font-family: 'Geologica', sans-serif;
