@@ -21,7 +21,7 @@ const otzivi = await getOtzivi();
     >
 
     <div class="mainimage-block">
-      <img src="/mainimage.png" class="mainimage" alt="Main Image" />
+      <img src="/mainimage.png" class="mainimage" alt="Баннер" />
       <div class="info-block">
         <div class="info">
           <h3>Почему выбирают нас?</h3>
@@ -77,7 +77,7 @@ const otzivi = await getOtzivi();
       </div>
     </div>
 
-    <div class="tovari">
+    <div class="tovari" id="products">
       <h2>Авто товары и ключи</h2>
       <div class="uslugi-block">
         <TovarList tovars={tovars} />
@@ -85,7 +85,7 @@ const otzivi = await getOtzivi();
     </div>
   </main>
 
-  <div class="callbackform">
+  <div class="callbackform" id="contacts">
     <h5>Свяжитесь с нами</h5>
     <h4>Мы делаем свою работу на высшем уровне</h4>
     <form id="dataForm" method="post">
