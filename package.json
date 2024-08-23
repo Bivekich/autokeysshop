@@ -18,6 +18,7 @@
     "@sanity/visual-editing": "^2.1.9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "@vercel/speed-insights": "^1.0.12",
     "astro": "^4.14.2",
     "astro-navbar": "^2.3.3",
     "axios": "^1.7.4",
