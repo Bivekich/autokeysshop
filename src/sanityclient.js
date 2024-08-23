@@ -1,4 +1,4 @@
-import { sanityClient } from 'sanity:client';
+import { sanityClient } from "sanity:client";
 
 export async function getTovars() {
   const query = `*[_type == "tovar"]{
@@ -26,7 +26,7 @@ export async function getTovars() {
     const data = await sanityClient.fetch(query);
     return data;
   } catch (error) {
-    console.error('Failed to fetch data from Sanity:', error);
+    console.error("Failed to fetch data from Sanity:", error);
     throw error;
   }
 }
@@ -61,7 +61,7 @@ export async function getUslugi() {
     const data = await sanityClient.fetch(query);
     return data;
   } catch (error) {
-    console.error('Failed to fetch data from Sanity:', error);
+    console.error("Failed to fetch data from Sanity:", error);
     throw error;
   }
 }
@@ -97,7 +97,7 @@ export async function getItem(id) {
     const items = await sanityClient.fetch(query);
     return items[0];
   } catch (error) {
-    console.error('Failed to fetch item from Sanity:', error);
+    console.error("Failed to fetch item from Sanity:", error);
     throw error;
   }
 }

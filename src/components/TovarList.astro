@@ -1,34 +1,36 @@
 ---
-import Tovar from './Tovar.astro';
+import Tovar from "./Tovar.astro";
 
 const { tovars } = Astro.props;
 
 let tovarElements = [];
 
-console.log(Object.keys(tovars).length)
+console.log(Object.keys(tovars).length);
 
 if (Object.keys(tovars).length > 0) {
   for (let i = 0; i < Object.keys(tovars).length; i++) {
     const tovar = tovars[i];
     tovarElements.push({
-        image_src: tovar.image1.asset.url,
-        brand: tovar.brand,
-        title: tovar.full_title,
-        href: `/tovar/${tovar._id}`
+      image_src: tovar.image1.asset.url,
+      brand: tovar.brand,
+      title: tovar.full_title,
+      href: `/tovar/${tovar._id}`,
     });
   }
 } else {
-  tovarElements.push('<p>Нет доступных товаров.</p>');
+  tovarElements.push("<p>Нет доступных товаров.</p>");
 }
 ---
 
-{tovarElements.map((elem) => {
+{
+  tovarElements.map((elem) => {
     return (
-        <Tovar
-            image_src={elem.image_src}
-            brand={elem.brand}
-            title={elem.title}
-            href={elem.href}
-        />
-    )
-})}
+      <Tovar
+        image_src={elem.image_src}
+        brand={elem.brand}
+        title={elem.title}
+        href={elem.href}
+      />
+    );
+  })
+}

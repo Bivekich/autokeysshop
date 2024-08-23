@@ -1,11 +1,11 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import TovarList from '../components/TovarList.astro';
-import UslugiList from '../components/UslugiList.astro';
-import AboutUsBigBlock from '../components/AboutUsBigBlock.astro';
-import AboutUsSmallBlock from '../components/AboutUsSmallBlock.astro';
-import { getTovars, getUslugi, getOtzivi } from '../sanityclient';
-import Slider from '../components/Slider.astro';
+import Layout from "../layouts/Layout.astro";
+import TovarList from "../components/TovarList.astro";
+import UslugiList from "../components/UslugiList.astro";
+import AboutUsBigBlock from "../components/AboutUsBigBlock.astro";
+import AboutUsSmallBlock from "../components/AboutUsSmallBlock.astro";
+import { getTovars, getUslugi, getOtzivi } from "../sanityclient";
+import Slider from "../components/Slider.astro";
 
 const tovars = await getTovars();
 const uslugi = await getUslugi();
@@ -15,24 +15,37 @@ const otzivi = await getOtzivi();
 <Layout title="Auto Keys Shop - Главная">
   <main>
     <h1 class="maintitle">Экспертный сервис для вашего авто</h1>
-    <span class="startSpan">Изготовление ключей, прошивка евро2 STAGE-1 и ремонт замков по лучшим ценам!</span>
-    
+    <span class="startSpan"
+      >Изготовление ключей, прошивка евро2 STAGE-1 и ремонт замков по лучшим
+      ценам!</span
+    >
+
     <div class="mainimage-block">
-      <img src="/mainimage.png" class="mainimage" alt="Main Image">
+      <img src="/mainimage.png" class="mainimage" alt="Main Image" />
       <div class="info-block">
         <div class="info">
           <h3>Почему выбирают нас?</h3>
-          <p>Мы гордимся нашей командой опытных специалистов, которые знают все тонкости работы с автомобилями.</p>
+          <p>
+            Мы гордимся нашей командой опытных специалистов, которые знают все
+            тонкости работы с автомобилями.
+          </p>
         </div>
-        <img src="/mercedes-benz-logo.svg" alt="Mercedes Logo" class="info-img">
-        <img src="/bmw-logo.svg" alt="BMW Logo" class="info-img">
+        <img
+          src="/mercedes-benz-logo.svg"
+          alt="Mercedes Logo"
+          class="info-img"
+        />
+        <img src="/bmw-logo.svg" alt="BMW Logo" class="info-img" />
       </div>
     </div>
 
     <div class="aboutus" id="aboutus">
       <div class="aboutus-block">
         <h5>О Нас</h5>
-        <p>Добро пожаловать в нашу компанию! Мы — команда высококвалифицированных специалистов.</p>
+        <p>
+          Добро пожаловать в нашу компанию! Мы — команда высококвалифицированных
+          специалистов.
+        </p>
       </div>
       <div class="aboutus-info-blocks">
         <AboutUsBigBlock
@@ -78,15 +91,16 @@ const otzivi = await getOtzivi();
     <form id="dataForm" method="post">
       <label>
         <span>ФИО</span>
-        <input type="text" name="fio" placeholder="ФИО">
+        <input type="text" name="fio" placeholder="ФИО" />
       </label>
       <label>
         <span>Номер телефона</span>
-        <input type="text" name="number" placeholder="Номер телефона">
+        <input type="text" name="number" placeholder="Номер телефона" />
       </label>
       <label>
         <span>Комментарий</span>
-        <textarea name="comment" id="comment" placeholder="Комментарий"></textarea>
+        <textarea name="comment" id="comment" placeholder="Комментарий"
+        ></textarea>
       </label>
       <button type="submit">Связаться с нами</button>
     </form>
@@ -94,64 +108,62 @@ const otzivi = await getOtzivi();
 </Layout>
 
 <script type="module">
-
-
   // Функция для отправки данных формы в Telegram
-  document.getElementById('dataForm').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  
-  // Получение данных формы
-  const formData = new FormData(e.target);
-  const fio = formData.get('fio');
-  const number = formData.get('number');
-  const comment = formData.get('comment');
+  document
+    .getElementById("dataForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-  // Сообщение для отправки в Telegram
-  const message = `
+      // Получение данных формы
+      const formData = new FormData(e.target);
+      const fio = formData.get("fio");
+      const number = formData.get("number");
+      const comment = formData.get("comment");
+
+      // Сообщение для отправки в Telegram
+      const message = `
     Новая заявка с сайта:
     ФИО: ${fio}
     Номер телефона: ${number}
     Комментарий: ${comment}
   `;
 
-  // Замените 'YOUR_BOT_TOKEN' на ваш API токен и 'YOUR_CHAT_ID' на ваш Chat ID
-  const botToken = '6583247383:AAFYgvUj0VawkJnKiod-ctskeSk9FthDmsE';
-  const chatId = '-1002217904188';
-  const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+      // Замените 'YOUR_BOT_TOKEN' на ваш API токен и 'YOUR_CHAT_ID' на ваш Chat ID
+      const botToken = "6583247383:AAFYgvUj0VawkJnKiod-ctskeSk9FthDmsE";
+      const chatId = "-1002217904188";
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
-  try {
-    // Отправка запроса
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text: message,
-        parse_mode: 'HTML'
-      })
+      try {
+        // Отправка запроса
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+            parse_mode: "HTML",
+          }),
+        });
+
+        if (response.ok) {
+          alert("Ваше сообщение успешно отправлено!");
+          e.target.reset(); // Очистка формы
+        } else {
+          alert("Произошла ошибка при отправке сообщения. Попробуйте снова.");
+          console.error("Response not OK:", response);
+        }
+      } catch (error) {
+        console.error("Ошибка:", error);
+        alert("Произошла ошибка при отправке сообщения. Попробуйте снова.");
+      }
     });
-
-    if (response.ok) {
-      alert('Ваше сообщение успешно отправлено!');
-      e.target.reset(); // Очистка формы
-    } else {
-      alert('Произошла ошибка при отправке сообщения. Попробуйте снова.');
-      console.error('Response not OK:', response);
-    }
-  } catch (error) {
-    console.error('Ошибка:', error);
-    alert('Произошла ошибка при отправке сообщения. Попробуйте снова.');
-  }
-});
-
 </script>
-
 
 <style>
   body {
-    font-family: 'Geologica', sans-serif;
+    font-family: "Geologica", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -167,7 +179,11 @@ const otzivi = await getOtzivi();
     line-height: 1.6;
   }
 
-  h1, h2, h3, h4, h5 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
     margin: 0;
     font-weight: 600;
   }
@@ -211,7 +227,9 @@ const otzivi = await getOtzivi();
     width: 100%;
     height: auto;
     border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .mainimage:hover {
@@ -249,7 +267,7 @@ const otzivi = await getOtzivi();
   }
 
   .callbackform {
-    background-color: #387EFF;
+    background-color: #387eff;
     padding: 50px;
     margin-top: 50px;
     display: flex;
@@ -295,7 +313,9 @@ const otzivi = await getOtzivi();
     border: 1px solid #b9b7b7;
     border-radius: 10px;
     font-size: 18px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .callbackform input:focus,
@@ -318,7 +338,9 @@ const otzivi = await getOtzivi();
     color: #fff;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      transform 0.3s ease;
   }
 
   .callbackform button:hover {

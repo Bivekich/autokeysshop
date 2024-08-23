@@ -1,7 +1,5 @@
 ---
-
 const { slides } = Astro.props;
-
 ---
 
 <style>
@@ -75,22 +73,23 @@ const { slides } = Astro.props;
   }
   .slide-content * {
     width: fit-content;
-    margin: auto
+    margin: auto;
   }
-
 </style>
 
 <div class="slider">
   <div class="slides" id="slides">
-    {slides.map((slide, index) => (
-      <div class="slide">
-        <div class="slide-content">
-          <img src="/avatar.svg" alt="Avatar" />
-          <p>{slide.otziv}</p>
-          <p>{slide.name}</p>
+    {
+      slides.map((slide, index) => (
+        <div class="slide">
+          <div class="slide-content">
+            <img src="/avatar.svg" alt="Avatar" />
+            <p>{slide.otziv}</p>
+            <p>{slide.name}</p>
+          </div>
         </div>
-      </div>
-    ))}
+      ))
+    }
   </div>
 
   <div class="navigation">
@@ -99,9 +98,7 @@ const { slides } = Astro.props;
   </div>
 
   <div class="dots">
-    {slides.map((_, index) => (
-      <span class="dot" data-index={index}></span>
-    ))}
+    {slides.map((_, index) => <span class="dot" data-index={index} />)}
   </div>
 </div>
 
@@ -109,17 +106,17 @@ const { slides } = Astro.props;
   let slideIndex = 0;
 
   function showSlides(n) {
-    const slides = document.querySelectorAll('.slide');
-    const dots = document.querySelectorAll('.dot');
+    const slides = document.querySelectorAll(".slide");
+    const dots = document.querySelectorAll(".dot");
 
     if (n >= slides.length) slideIndex = 0;
     if (n < 0) slideIndex = slides.length - 1;
 
-    slides.forEach((slide) => slide.style.display = 'none');
-    dots.forEach((dot) => dot.classList.remove('active'));
+    slides.forEach((slide) => (slide.style.display = "none"));
+    dots.forEach((dot) => dot.classList.remove("active"));
 
-    slides[slideIndex].style.display = 'block';
-    dots[slideIndex].classList.add('active');
+    slides[slideIndex].style.display = "block";
+    dots[slideIndex].classList.add("active");
   }
 
   function nextSlide() {
@@ -131,14 +128,14 @@ const { slides } = Astro.props;
   }
 
   function currentSlide(n) {
-    showSlides(slideIndex = n);
+    showSlides((slideIndex = n));
   }
 
-  document.getElementById('prev').addEventListener('click', prevSlide);
-  document.getElementById('next').addEventListener('click', nextSlide);
+  document.getElementById("prev").addEventListener("click", prevSlide);
+  document.getElementById("next").addEventListener("click", nextSlide);
 
-  document.querySelectorAll('.dot').forEach((dot, index) => {
-    dot.addEventListener('click', () => currentSlide(index));
+  document.querySelectorAll(".dot").forEach((dot, index) => {
+    dot.addEventListener("click", () => currentSlide(index));
   });
 
   showSlides(slideIndex); // Инициализируем слайдер при загрузке

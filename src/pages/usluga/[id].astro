@@ -1,6 +1,6 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getUslugi, getItem } from '../../sanityclient';
+import Layout from "../../layouts/Layout.astro";
+import { getUslugi, getItem } from "../../sanityclient";
 
 export async function getStaticPaths() {
   const uslugi = await getUslugi();
@@ -13,41 +13,45 @@ export async function getStaticPaths() {
 const id = Astro.url.pathname.split("/").at(-1);
 const usluga = await getItem(id);
 console.log(usluga.image1);
-
 ---
-  <Layout title="Auto Keys Shop - Услуга">
-    <main>
-      <section class="hero">
-        <h1 class="maintitle">Экспертный сервис для вашего авто</h1>
-        <p class="startSpan">
-          Изготовление ключей, прошивка евро2 STAGE-1 и ремонт замков <br /> по лучшим ценам!
-        </p>
-      </section>
 
-      <section class="mainimage-block">
-        <img src={usluga.image1.asset.url} class="mainimage" alt="Main Image" />
-        <div class="info-block">
-          <div class="info">
-            <h3>Почему выбирают нас?</h3>
-            <p>Мы гордимся нашей командой опытных специалистов, которые знают все тонкости работы с автомобилями.</p>
-          </div>
-        </div>
-      </section>
+<Layout title="Auto Keys Shop - Услуга">
+  <main>
+    <section class="hero">
+      <h1 class="maintitle">Экспертный сервис для вашего авто</h1>
+      <p class="startSpan">
+        Изготовление ключей, прошивка евро2 STAGE-1 и ремонт замков <br /> по лучшим
+        ценам!
+      </p>
+    </section>
 
-      <article>
-        <h3>{usluga.full_title}</h3>
-        <p>{usluga.paragraph1}</p>
-        <div class="paragraph_with_photo">
-          <p>{usluga.paragraph2}</p>
-          <img src={usluga.image2.asset.url} alt="Additional Image" />
+    <section class="mainimage-block">
+      <img src={usluga.image1.asset.url} class="mainimage" alt="Main Image" />
+      <div class="info-block">
+        <div class="info">
+          <h3>Почему выбирают нас?</h3>
+          <p>
+            Мы гордимся нашей командой опытных специалистов, которые знают все
+            тонкости работы с автомобилями.
+          </p>
         </div>
-        <p>{usluga.paragraph3}</p>
-      </article>
-    </main>
-  </Layout>
+      </div>
+    </section>
+
+    <article>
+      <h3>{usluga.full_title}</h3>
+      <p>{usluga.paragraph1}</p>
+      <div class="paragraph_with_photo">
+        <p>{usluga.paragraph2}</p>
+        <img src={usluga.image2.asset.url} alt="Additional Image" />
+      </div>
+      <p>{usluga.paragraph3}</p>
+    </article>
+  </main>
+</Layout>
 <style>
   body {
-    font-family: 'Geologica', sans-serif;
+    font-family: "Geologica", sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -87,7 +91,9 @@ console.log(usluga.image1);
   .mainimage {
     width: 100%;
     border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .mainimage:hover {

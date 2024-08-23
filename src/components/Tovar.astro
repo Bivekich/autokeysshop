@@ -1,67 +1,61 @@
 ---
-import { Image } from 'astro:assets';
+import { Image } from "astro:assets";
 
 interface Props {
-	image_src: string;
-    brand: string;
-    title: string;
-    href: string;
+  image_src: string;
+  brand: string;
+  title: string;
+  href: string;
 }
 
-const { 
-    image_src,
-    brand,
-    title,
-    href
-} = Astro.props;
+const { image_src, brand, title, href } = Astro.props;
 ---
 
-
 <div class="block">
-    <img src={image_src}>
-    <span class="brand">{brand}</span>
-    <h3>{title}</h3>
-    <a href={href}>Подробнее</a>
+  <img src={image_src} />
+  <span class="brand">{brand}</span>
+  <h3>{title}</h3>
+  <a href={href}>Подробнее</a>
 </div>
 
 <style>
-    * {
-        margin: 0;
-    }
-    .block{
-        padding: 20px;
-        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-        background: #fff;
-        display: flex;
-        flex-direction: column;
-        border-radius: 10px;
-        max-width: 450px;
-        text-decoration: none;
-        gap: 20px;
-    }
-    img{
-        width: 100%;
-        border-radius: 10px;
-    }
-    .brand{
-        font-weight: 600;
-        font-size: 22px;
-        color: #678aba;
-    }
-    h3 {
-        font-weight: 600;
-        font-size: 30px;
-        color: #000;
-    }
-    a {
-        background: #377dff;
-        border-radius: 10px;
-        padding: 10px 15px;
-        color: white;
-        font-weight: 600;
-        font-size: 20px;
-        text-decoration: none;
-        width: fit-content;
-        margin: auto;
-    }
+  * {
+    margin: 0;
+  }
+  .block {
+    padding: 20px;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    max-width: 450px;
+    text-decoration: none;
+    gap: 20px;
+  }
+  img {
+    width: 100%;
+    border-radius: 10px;
+  }
+  .brand {
+    font-weight: 600;
+    font-size: 22px;
+    color: #678aba;
+  }
+  h3 {
+    font-weight: 600;
+    font-size: 30px;
+    color: #000;
+  }
+  a {
+    background: #377dff;
+    border-radius: 10px;
+    padding: 10px 15px;
+    color: white;
+    font-weight: 600;
+    font-size: 20px;
+    text-decoration: none;
+    width: fit-content;
+    margin: auto;
+  }
 </style>

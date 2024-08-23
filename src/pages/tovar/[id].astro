@@ -1,10 +1,10 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import { getTovars, getItem } from '../../sanityclient';
+import Layout from "../../layouts/Layout.astro";
+import { getTovars, getItem } from "../../sanityclient";
 
 export async function getStaticPaths() {
   const tovars = await getTovars();
-  
+
   return tovars.map((post) => ({
     params: { id: post._id.toString() },
   }));
@@ -13,33 +13,37 @@ export async function getStaticPaths() {
 const id = Astro.url.pathname.split("/").at(-1);
 const tovar = await getItem(id);
 ---
-  <Layout title={`Auto Keys Shop - ${tovar.short_title}`}>
-    <main>
-      <h1 class="maintitle">{tovar.full_title}</h1>
-      <span class="startSpan">
-        {tovar.first_description}
-      </span>
-      <div class="mainimage-block">
-        <img src={tovar.image1.asset.url} class="mainimage" alt="Main Image" />
-        <div class="info-block">
-          <div class="info">
-            <h3>Почему выбирают нас?</h3>
-            <p>Мы гордимся нашей командой опытных специалистов, которые знают все тонкости работы с автомобилями.</p>
-          </div>
+
+<Layout title={`Auto Keys Shop - ${tovar.short_title}`}>
+  <main>
+    <h1 class="maintitle">{tovar.full_title}</h1>
+    <span class="startSpan">
+      {tovar.first_description}
+    </span>
+    <div class="mainimage-block">
+      <img src={tovar.image1.asset.url} class="mainimage" alt="Main Image" />
+      <div class="info-block">
+        <div class="info">
+          <h3>Почему выбирают нас?</h3>
+          <p>
+            Мы гордимся нашей командой опытных специалистов, которые знают все
+            тонкости работы с автомобилями.
+          </p>
         </div>
       </div>
-      <article>
-        <h3>{tovar.full_title}</h3>
-        <p>{tovar.price_with_work}</p>
-        <div class="paragraph_with_photo">
-          <p>{tovar.work_description}</p>
-          <img src={tovar.image2.asset.url} alt="Additional Image" />
-        </div>
-        <p>{tovar.short_title}</p>
-        <a href={tovar.AvitoURL} class="buy-button" target="_blank">Купить</a>
-      </article>
-    </main>
-  </Layout>
+    </div>
+    <article>
+      <h3>{tovar.full_title}</h3>
+      <p>{tovar.price_with_work}</p>
+      <div class="paragraph_with_photo">
+        <p>{tovar.work_description}</p>
+        <img src={tovar.image2.asset.url} alt="Additional Image" />
+      </div>
+      <p>{tovar.short_title}</p>
+      <a href={tovar.AvitoURL} class="buy-button" target="_blank">Купить</a>
+    </article>
+  </main>
+</Layout>
 <style>
   main {
     max-width: 1000px;
