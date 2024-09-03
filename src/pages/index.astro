@@ -29,6 +29,10 @@ const otzivi = await getOtzivi();
             Мы гордимся нашей командой опытных специалистов, которые знают все
             тонкости работы с автомобилями.
           </p>
+          <div class="phone-block">
+            <img src="/phone.svg" alt="Phone Icon" class="phone-icon" />
+            <span class="phone-number">+7 (915) 375-11-09</span>
+          </div>
         </div>
         <img
           src="/mercedes-benz-logo.svg"
@@ -216,6 +220,24 @@ const otzivi = await getOtzivi();
   .startSpan {
     font-size: 22px;
     color: #6777a7;
+  }
+
+  .phone-block {
+      display: flex;
+      align-items: center;
+      margin-top: 20px;
+  }
+
+  .phone-icon {
+      width: 24px;
+      height: 24px;
+      margin-right: 10px;
+  }
+
+  .phone-number {
+      font-size: 24px;
+      color: #fff;
+      font-weight: 500;
   }
 
   .mainimage-block {
