@@ -15,52 +15,54 @@ const otzivi = await getOtzivi();
 <Layout title="Auto Keys Shop - Главная">
   <main>
     <h1 class="maintitle">Auto Keys Shop</h1>
-    <span class="startSpan"
-      >Экспертный сервис по изготовлению автомобильных ключей, ремонту замков
-      зажигания и чип-тюнингу авто.</span
-    >
+    <span class="startSpan">
+      Экспертный сервис по изготовлению автомобильных ключей, ремонту замков
+      зажигания и чип-тюнингу авто.
+    </span>
 
     <div class="mainimage-block">
       <img src="/mainimage.png" class="mainimage" alt="Баннер" />
-      <div class="info-block">
-        <div class="info">
-          <h3>Почему выбирают нас?</h3>
-          <p>
-            Мы гордимся нашей командой опытных специалистов, которые знают все
-            тонкости работы с автомобилями.
-          </p>
-          <div class="phone-block">
-            <img src="/phone.svg" alt="Phone Icon" class="phone-icon" />
-            <a href="tel:79153751109" class="phone-number">+7 (915) 375-11-09</a
-            >
-          </div>
-          <div class="phone-block">
-            <img src="/tg.svg" alt="Telegram Icon" class="phone-icon" />
-            <a class="phone-number" href="https://t.me/autokeysshop">Telegram</a
-            >
-          </div>
-          <div class="phone-block">
-            <img src="/ws.svg" alt="WahtsUp Icon" class="phone-icon" />
-            <a class="phone-number" href="https://wa.me/79153751109">Telegram</a
-            >
-          </div>
+      <div class="info">
+        <h3>Почему выбирают нас?</h3>
+        <p>
+          Мы гордимся нашей командой опытных специалистов, которые знают все
+          тонкости работы с автомобилями.
+        </p>
+        <div class="phone-block">
+          <img src="/phone.svg" alt="Phone Icon" class="phone-icon" />
+          <a href="tel:79153751109" class="phone-number">+7 (915) 375-11-09</a>
         </div>
-        <img
-          src="/mercedes-benz-logo.svg"
-          alt="Mercedes Logo"
-          class="info-img"
-        />
-        <img src="/bmw-logo.svg" alt="BMW Logo" class="info-img" />
+        <div class="phone-block">
+          <img src="/tg.svg" alt="Telegram Icon" class="phone-icon" />
+          <a class="phone-number" href="https://t.me/autokeysshop">Telegram</a>
+        </div>
+        <div class="phone-block">
+          <img src="/ws.svg" alt="WhatsApp Icon" class="phone-icon" />
+          <a class="phone-number" href="https://wa.me/79153751109">WhatsApp</a>
+        </div>
       </div>
+    </div>
+
+    <!-- Логотипы автомобилей -->
+    <div class="logo-block">
+      <img src="/mercedes-benz-logo.svg" alt="Mercedes Logo" class="info-img" />
+      <img src="/bmw-logo.svg" alt="BMW Logo" class="info-img" />
+      <img src="/audi.svg" alt="Audi Logo" class="info-img" />
+      <img src="/volkswagen.svg" alt="Volkswagen Logo" class="info-img" />
+      <img src="/porsche.svg" alt="Porsche Logo" class="info-img" />
+      <img src="/bentley.svg" alt="Bentley Logo" class="info-img" />
+      <img src="/mazda.svg" alt="Mazda Logo" class="info-img" />
+      <img src="/toyota.svg" alt="Toyota Logo" class="info-img" />
+      <img src="/honda.svg" alt="Honda Logo" class="info-img" />
+      <img src="/hyundai.svg" alt="Hyundai Logo" class="info-img" />
+      <img src="/kia.svg" alt="Kia Logo" class="info-img" />
     </div>
 
     <div class="aboutus" id="aboutus">
       <div class="aboutus-block">
         <h5>Приветствуем Вас</h5>
         <p>
-          Наша команда профессионалов занимаемся чип тюнингом и изготовлением
-          авто ключей с 2013 года. Используем профессиональное оборудование в
-          своей работе. Сроки выполнения быстрее чем у дилера
+          Наша команда профессионалов занимается чип-тюнингом и изготовлением авто ключей с 2013 года. Используем профессиональное оборудование в своей работе. Сроки выполнения быстрее, чем у дилера.
         </p>
       </div>
       <div class="aboutus-info-blocks">
@@ -115,8 +117,7 @@ const otzivi = await getOtzivi();
       </label>
       <label>
         <span>Комментарий</span>
-        <textarea name="comment" id="comment" placeholder="Комментарий"
-        ></textarea>
+        <textarea name="comment" id="comment" placeholder="Комментарий"></textarea>
       </label>
       <button type="submit">Связаться с нами</button>
     </form>
@@ -125,56 +126,50 @@ const otzivi = await getOtzivi();
 
 <script type="module">
   // Функция для отправки данных формы в Telegram
-  document
-    .getElementById("dataForm")
-    .addEventListener("submit", async function (e) {
-      e.preventDefault();
+  document.getElementById("dataForm").addEventListener("submit", async function (e) {
+    e.preventDefault();
 
-      // Получение данных формы
-      const formData = new FormData(e.target);
-      const fio = formData.get("fio");
-      const number = formData.get("number");
-      const comment = formData.get("comment");
+    const formData = new FormData(e.target);
+    const fio = formData.get("fio");
+    const number = formData.get("number");
+    const comment = formData.get("comment");
 
-      // Сообщение для отправки в Telegram
-      const message = `
-    Новая заявка с сайта:
-    ФИО: ${fio}
-    Номер телефона: ${number}
-    Комментарий: ${comment}
-  `;
+    const message = `
+      Новая заявка с сайта:
+      ФИО: ${fio}
+      Номер телефона: ${number}
+      Комментарий: ${comment}
+    `;
 
-      // Замените 'YOUR_BOT_TOKEN' на ваш API токен и 'YOUR_CHAT_ID' на ваш Chat ID
-      const botToken = "6583247383:AAFYgvUj0VawkJnKiod-ctskeSk9FthDmsE";
-      const chatId = "-1002217904188";
-      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+    const botToken = "YOUR_BOT_TOKEN";
+    const chatId = "YOUR_CHAT_ID";
+    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
-      try {
-        // Отправка запроса
-        const response = await fetch(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            chat_id: chatId,
-            text: message,
-            parse_mode: "HTML",
-          }),
-        });
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: message,
+          parse_mode: "HTML",
+        }),
+      });
 
-        if (response.ok) {
-          alert("Ваше сообщение успешно отправлено!");
-          e.target.reset(); // Очистка формы
-        } else {
-          alert("Произошла ошибка при отправке сообщения. Попробуйте снова.");
-          console.error("Response not OK:", response);
-        }
-      } catch (error) {
-        console.error("Ошибка:", error);
+      if (response.ok) {
+        alert("Ваше сообщение успешно отправлено!");
+        e.target.reset(); // Очистка формы
+      } else {
         alert("Произошла ошибка при отправке сообщения. Попробуйте снова.");
+        console.error("Response not OK:", response);
       }
-    });
+    } catch (error) {
+      console.error("Ошибка:", error);
+      alert("Произошла ошибка при отправке сообщения. Попробуйте снова.");
+    }
+  });
 </script>
 
 <style>
@@ -245,6 +240,19 @@ const otzivi = await getOtzivi();
     margin-right: 10px;
   }
 
+  .info-img {
+    width: 64px;
+    height: auto;
+    margin: 10px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .info-img:hover {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+
   .phone-number {
     font-size: 24px;
     color: #fff;
@@ -252,18 +260,18 @@ const otzivi = await getOtzivi();
   }
 
   .mainimage-block {
+    position: relative;
     display: flex;
     flex-direction: column;
     margin-top: 60px;
+    margin-bottom: 60px;
   }
 
   .mainimage {
     width: 100%;
     height: auto;
     border-radius: 10px;
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
 
   .mainimage:hover {
@@ -271,33 +279,73 @@ const otzivi = await getOtzivi();
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
   }
 
-  .info-block {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    transform: translateY(-75%);
-  }
-
   .info {
+    position: absolute;
+    bottom: -30px;
+    left: 10%; /* Теперь блок расположен слева */
     background-color: #377dff;
     border-radius: 10px;
-    padding: 30px;
+    padding: 20px;
     color: #fff;
-    max-width: 400px;
+    max-width: 40%; /* Ограничиваем ширину блока до 40% */
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease;
   }
 
-  .info:hover {
-    transform: translateY(-10px);
-  }
-
   .info h3 {
-    font-size: 28px;
+    font-size: 24px; /* Уменьшены размеры текста */
     color: #97bcff;
   }
 
   .info p {
-    font-size: 24px;
+    font-size: 18px; /* Уменьшен текст */
+  }
+
+  .info:hover {
+    transform: translateY(-10px); /* Эффект при наведении */
+  }
+
+  /* Адаптивность для мобильных устройств */
+  @media (max-width: 768px) {
+    .info {
+      bottom: -20px;
+      padding: 15px;
+      max-width: 60%; /* Блок шире на планшетах */
+      left: 5%; /* Смещаем блок влево */
+    }
+
+    .info h3 {
+      font-size: 20px;
+    }
+
+    .info p {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .info {
+      bottom: -10px;
+      padding: 10px;
+      max-width: 90%; /* Ограничиваем размер блока для мобильных устройств */
+      left: 5%; /* Смещаем блок влево */
+    }
+
+    .info h3 {
+      font-size: 16px;
+    }
+
+    .info p {
+      font-size: 14px;
+    }
+  }
+
+  .logo-block {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 колонок для десктопа */
+    justify-items: center;
+    gap: 20px;
+    margin-top: 20px;
   }
 
   .callbackform {
@@ -347,9 +395,7 @@ const otzivi = await getOtzivi();
     border: 1px solid #b9b7b7;
     border-radius: 10px;
     font-size: 18px;
-    transition:
-      border-color 0.3s ease,
-      box-shadow 0.3s ease;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
   .callbackform input:focus,
@@ -372,9 +418,7 @@ const otzivi = await getOtzivi();
     color: #fff;
     border: none;
     cursor: pointer;
-    transition:
-      background-color 0.3s ease,
-      transform 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
   }
 
   .callbackform button:hover {
@@ -405,43 +449,26 @@ const otzivi = await getOtzivi();
   }
 
   @media (max-width: 768px) {
-    .info-block {
-      flex-direction: column;
-      align-items: center;
-      transform: translateY(-10%);
+    .logo-block {
+      grid-template-columns: repeat(3, 1fr); /* 3 колонки для планшетов */
     }
 
-    .callbackform h5 {
-      font-size: 28px;
+    .info {
+      bottom: -20px;
+      padding: 15px;
+      max-width: 60%;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .logo-block {
+      grid-template-columns: repeat(2, 1fr); /* 2 колонки для телефонов */
     }
 
-    .callbackform h4 {
-      font-size: 22px;
-    }
-
-    .callbackform form {
-      padding: 20px;
-    }
-
-    .callbackform input,
-    .callbackform textarea {
-      font-size: 16px;
-    }
-
-    .callbackform button {
-      font-size: 18px;
-    }
-
-    .maintitle {
-      font-size: 36px;
-    }
-
-    .startSpan {
-      font-size: 18px;
-    }
-
-    .mainimage-block {
-      margin-top: 30px;
+    .info {
+      bottom: -10px;
+      padding: 10px;
+      max-width: 90%;
     }
   }
 </style>
