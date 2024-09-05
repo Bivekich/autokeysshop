@@ -62,7 +62,9 @@ const otzivi = await getOtzivi();
       <div class="aboutus-block">
         <h5>Приветствуем Вас</h5>
         <p>
-          Наша команда профессионалов занимается чип-тюнингом и изготовлением авто ключей с 2013 года. Используем профессиональное оборудование в своей работе. Сроки выполнения быстрее, чем у дилера.
+          Наша команда профессионалов занимается чип-тюнингом и изготовлением
+          авто ключей с 2013 года. Используем профессиональное оборудование в
+          своей работе. Сроки выполнения быстрее, чем у дилера.
         </p>
       </div>
       <div class="aboutus-info-blocks">
@@ -117,7 +119,8 @@ const otzivi = await getOtzivi();
       </label>
       <label>
         <span>Комментарий</span>
-        <textarea name="comment" id="comment" placeholder="Комментарий"></textarea>
+        <textarea name="comment" id="comment" placeholder="Комментарий"
+        ></textarea>
       </label>
       <button type="submit">Связаться с нами</button>
     </form>
@@ -126,50 +129,52 @@ const otzivi = await getOtzivi();
 
 <script type="module">
   // Функция для отправки данных формы в Telegram
-  document.getElementById("dataForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+  document
+    .getElementById("dataForm")
+    .addEventListener("submit", async function (e) {
+      e.preventDefault();
 
-    const formData = new FormData(e.target);
-    const fio = formData.get("fio");
-    const number = formData.get("number");
-    const comment = formData.get("comment");
+      const formData = new FormData(e.target);
+      const fio = formData.get("fio");
+      const number = formData.get("number");
+      const comment = formData.get("comment");
 
-    const message = `
+      const message = `
       Новая заявка с сайта:
       ФИО: ${fio}
       Номер телефона: ${number}
       Комментарий: ${comment}
     `;
 
-    const botToken = "YOUR_BOT_TOKEN";
-    const chatId = "YOUR_CHAT_ID";
-    const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+      const botToken = "YOUR_BOT_TOKEN";
+      const chatId = "YOUR_CHAT_ID";
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
 
-    try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          chat_id: chatId,
-          text: message,
-          parse_mode: "HTML",
-        }),
-      });
+      try {
+        const response = await fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: message,
+            parse_mode: "HTML",
+          }),
+        });
 
-      if (response.ok) {
-        alert("Ваше сообщение успешно отправлено!");
-        e.target.reset(); // Очистка формы
-      } else {
+        if (response.ok) {
+          alert("Ваше сообщение успешно отправлено!");
+          e.target.reset(); // Очистка формы
+        } else {
+          alert("Произошла ошибка при отправке сообщения. Попробуйте снова.");
+          console.error("Response not OK:", response);
+        }
+      } catch (error) {
+        console.error("Ошибка:", error);
         alert("Произошла ошибка при отправке сообщения. Попробуйте снова.");
-        console.error("Response not OK:", response);
       }
-    } catch (error) {
-      console.error("Ошибка:", error);
-      alert("Произошла ошибка при отправке сообщения. Попробуйте снова.");
-    }
-  });
+    });
 </script>
 
 <style>
@@ -245,7 +250,9 @@ const otzivi = await getOtzivi();
     height: auto;
     margin: 10px;
     opacity: 0.8;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
   }
 
   .info-img:hover {
@@ -271,7 +278,9 @@ const otzivi = await getOtzivi();
     width: 100%;
     height: auto;
     border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .mainimage:hover {
@@ -395,7 +404,9 @@ const otzivi = await getOtzivi();
     border: 1px solid #b9b7b7;
     border-radius: 10px;
     font-size: 18px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease;
   }
 
   .callbackform input:focus,
@@ -418,7 +429,9 @@ const otzivi = await getOtzivi();
     color: #fff;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition:
+      background-color 0.3s ease,
+      transform 0.3s ease;
   }
 
   .callbackform button:hover {

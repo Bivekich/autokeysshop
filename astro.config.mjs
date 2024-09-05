@@ -7,11 +7,15 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react(), sanity({
-    projectId: "20ujrfez",
-    dataset: "production",
-    useCdn: true
-  }), sitemap()],
+  integrations: [
+    react(),
+    sanity({
+      projectId: "20ujrfez",
+      dataset: "production",
+      useCdn: true,
+    }),
+    sitemap(),
+  ],
   output: "server",
-  adapter: vercel()
+  adapter: vercel(),
 });
